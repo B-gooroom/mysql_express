@@ -27,7 +27,7 @@ router.get('/', function (request, response) {
   const sql = `
     select * from groceries
     where member_pk = 1
-    order by ? ?;
+    order by ${orderName} ${orderType};
   `;
   db.query(sql, [orderName, orderType], function (error, rows) {
     if (!error || db.error(request, response, error)) {
