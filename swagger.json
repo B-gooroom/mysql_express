@@ -1,0 +1,113 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "REST API members"
+  },
+  "basePath": "/api/v1",
+  "paths": {
+    "/members": {
+      "get": {
+        "tags": [
+          "members"
+        ],
+        "summary": "Read",
+        "responses": {
+          "200": {
+            "description": "Readed"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "members"
+        ],
+        "summary": "Create",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/member"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Created"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "members"
+        ],
+        "summary": "Update",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/memberUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Updated"
+          }
+        }
+      }
+    },
+    "/members/{index}": {
+      "delete": {
+        "tags": [
+          "members"
+        ],
+        "summary": "Delete",
+        "parameters": [
+          {
+            "name": "index",
+            "in": "path",
+            "required": true,
+            "type": "number",
+            "default": 0
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deleted"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "member": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "홍길선"
+        },
+        "age": {
+          "type": "string",
+          "example": "38"
+        }
+      }
+    },
+    "memberUpdate": {
+      "type": "object",
+      "properties": {
+        "index": {
+          "type": "number",
+          "example": 0
+        },
+        "member": {
+          "$ref": "#/definitions/member"
+        }
+      }
+    }
+  }
+}
