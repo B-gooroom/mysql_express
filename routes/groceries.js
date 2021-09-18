@@ -21,4 +21,23 @@ router.post('/', function (request, response) {
   });
 });
 
+router.get('/', function (request, response) {
+  const orderName = request.query.orderName || 'name';
+  const orderType = request.query.orderType || 'asc';
+  const sql = `
+    select * from groceries
+    where member_pk = 1
+    order by ? ?;
+  `;
+  db.query(sql, [orderName, orderType], function (error, rows) {
+    if (!error || db.error(request, response, error)) {
+      console.log('Done groceries get', rows);
+      response.status(200).send({
+        result: 'Readed',
+        groceries: rows
+      });
+    }
+  });
+});
+
 module.exports = router;
