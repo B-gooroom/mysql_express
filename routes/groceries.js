@@ -40,4 +40,20 @@ router.get('/', function (request, response) {
   });
 });
 
+router.patch('/:grocery_pk', function (request, response) {
+  const sql = `
+    update groceries
+    set expire = ?
+    where grocery_pk = ? and member_pk = 1;
+  `;
+  db.query(sql, [request.body.expire, request.params.grocery_pk], function (error, rows) {
+    if (!error || db.error(request, response, error)) {
+      console.log('Done groceries patch', rows);
+      response.status(200).send({
+        result: 'Updated'
+      });
+    }
+  });
+});
+
 module.exports = router;
