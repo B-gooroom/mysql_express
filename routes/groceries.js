@@ -56,4 +56,19 @@ router.patch('/:grocery_pk', function (request, response) {
   });
 });
 
+router.delete('/:grocery_pk', function (request, response) {
+  const sql = `
+    delete from groceries
+    where grocery_pk = ? and member_pk = 1;
+  `;
+  db.query(sql, [request.params.grocery_pk], function (error, rows) {
+    if (!error || db.error(request, response, error)) {
+      console.log('Done groceries delete', rows);
+      response.status(200).send({
+        result: 'Deleted'
+      });
+    }
+  });
+});
+
 module.exports = router;
