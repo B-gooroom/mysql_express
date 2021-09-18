@@ -81,6 +81,90 @@
           }
         }
       }
+    },
+    "/groceries": {
+      "get": {
+        "tags": [
+          "groceries"
+        ],
+        "summary": "Read",
+        "responses": {
+          "200": {
+            "description": "Read"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "groceries"
+        ],
+        "summary": "Create",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/grocery"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Created"
+          }
+        }
+      }
+    },
+    "/groceries/{index}": {
+      "patch": {
+        "tags": [
+          "groceries"
+        ],
+        "summary": "Update",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "index",
+            "required": true,
+            "type": "number",
+            "default": 0
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/grocery"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Updated"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "groceries"
+        ],
+        "summary": "Delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "index",
+            "required": true,
+            "type": "number",
+            "default": 0
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deleted"
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -106,6 +190,23 @@
         },
         "member": {
           "$ref": "#/definitions/member"
+        }
+      }
+    },
+    "grocery": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "홍길선"
+        },
+        "enter": {
+          "type": "string",
+          "example": "2021-01-01"
+        },
+        "expire": {
+          "type": "string",
+          "example": "2021-01-01"
         }
       }
     }
