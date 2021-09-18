@@ -1,6 +1,8 @@
 const express = global.express = require('express');
 const app = express();
 
+global.db = require('./mysql-connector.js')
+
 // Swagger
 const swaggerUi = require('swagger-ui-express');
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(require('./swagger.json')));
@@ -11,7 +13,7 @@ global.mocks = {
 };
 
 // CROSS, Methods, Headers
-app.use(function(request, response, next) {
+app.use(function (request, response, next) {
   response.setHeader('Access-Control-Allow-Origin', '*');
   response.setHeader('Access-Control-Allow-Methods', 'OPTIONS, PUT, PATCH, DELETE');
   response.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -25,7 +27,7 @@ app.use('/api/v1/search', require('./routes/search.js'));
 
 // Start server
 global.location = new URL('http://localhost:3100');
-app.listen(global.location.port, function() {
+app.listen(global.location.port, function () {
   console.log('Express server listening on ' + global.location.origin + '/api/v1/members');
   console.log('Swagger on ' + global.location.origin + '/api-docs');
 });
