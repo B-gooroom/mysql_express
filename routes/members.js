@@ -3,8 +3,22 @@ const members = global.mocks.members;
 const jwtAuth = require('../middlewares/jwtAuth.js');
 
 router.post('/login/', function (request, response) {
-  // TODO: 로그인 가능한 회원인지 확인
-  jwtAuth.tokenCreate(request, response, request.body);
+  const sql = `
+    select * from members
+    where name = ? and age = ?;
+  `;
+  db.query(sql, [request.body.name, request.body.age], function (error, rows) {
+    if (!error || db.error(request, response, error)) {
+      console.log(rows);
+      if (rows.length) {
+        jwtAuth.tokenCreate(request, response, request.body);
+      } else {
+        return response.status(403).json({
+          message: '올바른 회원 정보를 찾지 못했습니다.'
+        });
+      }
+    }
+  });
 });
 
 router.get('/login/', jwtAuth.tokenCheck, function (request, response) {
